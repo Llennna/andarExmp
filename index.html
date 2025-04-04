@@ -3,126 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простой сайт</title>
+    <title>Интерактивный сайт</title>
     <style>
         /* Общие стили */
-        body {
-            font-family: Arial, sans-serif;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            background-color: #f5f5f5;
             color: #333;
         }
         
         /* Шапка */
         header {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
             color: white;
-            padding: 1rem 0;
+            padding: 2rem 0;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
-        header nav a {
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1rem;
+        }
+        
+        nav a {
             color: white;
             text-decoration: none;
-            margin: 0 10px;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
         
-        header nav a:hover {
-            text-decoration: underline;
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         
         /* Основное содержимое */
         main {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-bottom: 60px; /* Чтобы контент не скрывался под фиксированным подвалом */
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
         
         section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 5px;
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        img {
-            max-width: 100%;
-            height: auto;
+        h2 {
+            color: #6e8efb;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Форма */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
             display: block;
-            margin: 10px 0;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
             border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
         }
         
         /* Подвал */
         footer {
+            text-align: center;
+            padding: 1.5rem;
             background: #333;
             color: white;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        section {
+            animation: fadeIn 0.5s ease-out forwards;
         }
         
         /* Адаптивность */
-        @media (max-width: 600px) {
-            header nav {
-                display: flex;
+        @media (max-width: 768px) {
+            nav {
                 flex-direction: column;
-            }
-            header nav a {
-                margin: 5px 0;
+                align-items: center;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Мой простой сайт</h1>
+        <h1>Интерактивный сайт</h1>
         <nav>
-            <a href="#home">Главная</a>
-            <a href="#about">О нас</a>
-            <a href="#services">Услуги</a>
-            <a href="#contact">Контакты</a>
+            <a href="#" onclick="showSection('home')">Главная</a>
+            <a href="#" onclick="showSection('features')">Возможности</a>
+            <a href="#" onclick="showSection('gallery')">Галерея</a>
+            <a href="#" onclick="showSection('contact')">Контакты</a>
         </nav>
     </header>
 
     <main>
-        <section id="home">
+        <section id="home-section">
             <h2>Добро пожаловать!</h2>
-            <p>Это пример простого одностраничного сайта, который полностью помещается в одном HTML-файле.</p>
-            <img src="https://via.placeholder.com/800x400?text=Пример+изображения" alt="Пример">
-            <p>Сайт включает в себя адаптивный дизайн, который хорошо выглядит как на компьютерах, так и на мобильных устройствах.</p>
+            <p>Это интерактивный одностраничный сайт с JavaScript. Попробуйте нажать на кнопки ниже:</p>
+            
+            <div style="margin: 1.5rem 0; display: flex; gap: 1rem;">
+                <button onclick="changeBackground()">Изменить фон</button>
+                <button onclick="showAlert()">Показать приветствие</button>
+                <button onclick="startAnimation()">Запустить анимацию</button>
+            </div>
+            
+            <div id="counter-container" style="margin: 1.5rem 0;">
+                <p>Счетчик: <span id="counter">0</span></p>
+                <button onclick="incrementCounter()">Увеличить</button>
+                <button onclick="decrementCounter()">Уменьшить</button>
+                <button onclick="resetCounter()">Сбросить</button>
+            </div>
         </section>
 
-        <section id="about">
-            <h2>О нашей компании</h2>
-            <p>Мы небольшая команда энтузиастов, создающая простые и функциональные веб-сайты.</p>
-            <p>Наша миссия - сделать веб-разработку доступной для всех.</p>
-        </section>
-
-        <section id="services">
-            <h2>Наши услуги</h2>
-            <ul>
-                <li>Создание простых сайтов</li>
-                <li>Верстка HTML/CSS</li>
-                <li>Базовая SEO-оптимизация</li>
-                <li>Консультации по веб-разработке</li>
+        <section id="features-section" style="display: none;">
+            <h2>Наши возможности</h2>
+            <ul id="features-list">
+                <!-- Список будет заполнен через JavaScript -->
             </ul>
+            <button onclick="addFeature()">Добавить возможность</button>
         </section>
 
-        <section id="contact">
-            <h2>Как с нами связаться</h2>
-            <p>Email: <a href="mailto:contact@example.com">contact@example.com</a></p>
-            <p>Телефон: +7 (123) 456-78-90</p>
-            <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
+        <section id="gallery-section" style="display: none;">
+            <h2>Галерея изображений</h2>
+            <div id="image-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                <!-- Изображения будут добавлены через JavaScript -->
+            </div>
+            <button onclick="loadMoreImages()">Загрузить еще</button>
+        </section>
+
+        <section id="contact-section" style="display: none;">
+            <h2>Свяжитесь с нами</h2>
+            <form id="contact-form" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
+            <div id="form-result" style="margin-top: 1rem;"></div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Простой сайт. Все права защищены.</p>
+        <p>&copy; 2023 Интерактивный сайт. Все права защищены.</p>
+        <p id="visit-time" style="margin-top: 0.5rem;"></p>
     </footer>
+
+    <script>
+        // Показываем только выбранную секцию
+        function showSection(sectionId) {
+            const sections = ['home', 'features', 'gallery', 'contact'];
+            sections.forEach(id => {
+                const element = document.getElementById(`${id}-section`);
+                if (element) {
+                    element.style.display = id === sectionId ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Счетчик
+        let counter = 0;
+        function updateCounter() {
+            document.getElementById('counter').textContent = counter;
+        }
+        function incrementCounter() {
+            counter++;
+            updateCounter();
+        }
+        function decrementCounter() {
+            counter--;
+            updateCounter();
+        }
+        function resetCounter() {
+            counter = 0;
+            updateCounter();
+        }
+
+        // Изменение фона
+        function changeBackground() {
+            const colors = ['#f5f5f5', '#ffe6e6', '#e6ffe6', '#e6f3ff', '#f9e6ff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+
+        // Приветственное сообщение
+        function showAlert() {
+            const name = prompt('Как вас зовут?', 'Гость');
+            if (name) {
+                alert(`Привет, ${name}! Добро пожаловать на наш сайт!`);
+            }
+        }
+
+        // Анимация
+        function startAnimation() {
+            const header = document.querySelector('header');
+            header.style.animation = 'none';
+            void header.offsetWidth; // Trigger reflow
+            header.style.animation = 'fadeIn 0.5s ease-out';
+        }
+
+        // Возможности
+        const features = [
+            'Динамическое изменение контента',
+            'Интерактивные элементы',
+            'Анимации и переходы',
+            'Работа с формами',
+            'Локальное хранение данных'
+        ];
+
+        function renderFeatures() {
+            const list = document.getElementById('features-list');
+            list.innerHTML = '';
+            features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                li.style.margin = '0.5rem 0';
+                list.appendChild(li);
+            });
+        }
+
+        function addFeature() {
+            const newFeature = prompt('Введите новую возможность:');
+            if (newFeature) {
+                features.push(newFeature);
+                renderFeatures();
+            }
+        }
+
+        // Галерея
+        let loadedImages = 0;
+        const totalImages = 9;
+
+        function renderImages() {
+            const container = document.getElementById('image-container');
+            for (let i = loadedImages; i < loadedImages + 3 && i < totalImages; i++) {
+                const img = document.createElement('img');
+                img.src = `https://picsum.photos/seed/${i+1}/300/200`;
+                img.alt = `Изображение ${i+1}`;
+                img.style.borderRadius = '5px';
+                img.style.width = '100%';
+                img.style.height = 'auto';
+                container.appendChild(img);
+            }
+            loadedImages += 3;
+        }
+
+        function loadMoreImages() {
+            if (loadedImages < totalImages) {
+                renderImages();
+            } else {
+                alert('Все изображения загружены!');
+            }
+        }
+
+        // Форма обратной связи
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            const resultDiv = document.getElementById('form-result');
+            resultDiv.innerHTML = `
+                <p style="color: green;">Спасибо, ${name}! Ваше сообщение отправлено.</p>
+                <p>Мы ответим вам на адрес ${email} в ближайшее время.</p>
+            `;
+            
+            document.getElementById('contact-form').reset();
+        }
+
+        // Время посещения
+        function updateVisitTime() {
+            const now = new Date();
+            document.getElementById('visit-time').textContent = 
+                `Вы посетили нас: ${now.toLocaleString()}`;
+        }
+
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            updateVisitTime();
+            renderFeatures();
+            renderImages();
+            
+            // Показываем первую секцию
+            showSection('home');
+        };
+    </script>
 </body>
 </html>
